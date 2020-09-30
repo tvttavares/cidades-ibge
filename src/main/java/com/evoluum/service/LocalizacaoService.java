@@ -29,7 +29,7 @@ public class LocalizacaoService {
 		return webClientService.getTodosOsDadosJSON();
 	}
 
-	public Object getTodosOsDadosCSV(HttpServletResponse response) {
+	public void getTodosOsDadosCSV(HttpServletResponse response) {
 		List<LocalizacaoDTO> listLocalizacoes = webClientService.getTodosOsDadosJSON();
 
 		try {
@@ -40,8 +40,6 @@ public class LocalizacaoService {
 			logger.info("Falha na geração do arquivo csv.");
 			logger.error(e.getMessage());
 		}
-
-		return null;
 	}
 
 	private void gerarArquivo(HttpServletResponse response, List<LocalizacaoDTO> listLocalizacoes) throws IOException {
