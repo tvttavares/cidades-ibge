@@ -1,7 +1,10 @@
 package com.evoluum.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
@@ -55,4 +58,9 @@ public class LocalizacaoServiceTest {
 		localizacaoService.getTodosOsDadosCSV(response);
 	}
 
+	@Test
+	public void testGetIdMunicipio() {
+		doReturn(new String("cidade_teste")).when(localizacaoService).getIdMunicipio("cidade_teste");
+		assertNotNull(localizacaoService.getIdMunicipio("cidade_teste"));
+	}
 }

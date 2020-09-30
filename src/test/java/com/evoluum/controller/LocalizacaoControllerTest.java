@@ -12,7 +12,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -35,15 +34,19 @@ public class LocalizacaoControllerTest {
 	@Test
 	public void testgetTodosOsDadosJSON404() {
 		when(localizacaoService.getTodosOsDados(response)).thenReturn(null);
-		assertEquals(ResponseEntity.status(HttpStatus.NOT_FOUND).body(null).getStatusCode(),
-				localizacaoController.getTodosOsDadosJSON(response).getStatusCode());
+		assertEquals(HttpStatus.NOT_FOUND, localizacaoController.getTodosOsDadosJSON(response).getStatusCode());
 	}
 
 	@Test
 	public void testGetTodosOsDadosJSON() {
 		when(localizacaoService.getTodosOsDados(response)).thenReturn((new ArrayList<LocalizacaoDTO>()));
-		assertEquals(ResponseEntity.status(HttpStatus.OK).body(null).getStatusCode(),
-				localizacaoController.getTodosOsDadosJSON(response).getStatusCode());
+		assertEquals(HttpStatus.OK, localizacaoController.getTodosOsDadosJSON(response).getStatusCode());
+	}
+
+	@Test
+	public void getIdMunicipio() {
+		when(localizacaoService.getIdMunicipio("cidade_teste")).thenReturn(new String());
+		assertEquals(HttpStatus.OK, localizacaoController.getIdMunicipio("cidade_teste").getStatusCode());
 	}
 
 }
