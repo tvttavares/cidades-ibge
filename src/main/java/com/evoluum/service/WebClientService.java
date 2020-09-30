@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -46,6 +47,7 @@ public class WebClientService {
 		return listaLocalizacao;
 	}
 
+	@Cacheable("idMunicipio")
 	public String getIdMunicipio(String nomeCidade) {
 		logger.info("Buscando id da cidade: " + nomeCidade);
 		String idCidade = restTemplate.getForObject(endpointMunicipio + nomeCidade, MunicipioDTO.class).getId();

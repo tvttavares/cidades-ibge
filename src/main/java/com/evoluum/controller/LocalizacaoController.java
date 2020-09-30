@@ -46,7 +46,7 @@ public class LocalizacaoController {
 	@GetMapping("/municipio/{nomeCidade}")
 	public ResponseEntity<String> getIdMunicipio(@PathVariable String nomeCidade) {
 		logger.info("Iniciando requisição para nome de cidade.");
-		String idCidade = localizacaoService.getIdMunicipio(nomeCidade);
+		String idCidade = localizacaoService.getIdMunicipio(nomeCidade.trim());
 		return ResponseEntity.status(HttpStatus.OK).body(idCidade);
 	}
 
