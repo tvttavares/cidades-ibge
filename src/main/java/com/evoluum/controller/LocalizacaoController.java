@@ -26,9 +26,9 @@ public class LocalizacaoController {
 	private LocalizacaoService localizacaoService;
 
 	@GetMapping("/todos/json")
-	public ResponseEntity<List<LocalizacaoDTO>> getTodosOsDados(HttpServletResponse response) {
-		logger.info("Iniciando requisição de todos os dados");
-		List<LocalizacaoDTO> dados = localizacaoService.getTodosOsDadosJSON(response);
+	public ResponseEntity<List<LocalizacaoDTO>> getTodosOsDadosJSON(HttpServletResponse response) {
+		logger.info("Iniciando requisição de todos os dados em formato Json");
+		List<LocalizacaoDTO> dados = localizacaoService.getTodosOsDados(response);
 
 		return ResponseEntity.status(dados == null ? HttpStatus.NOT_FOUND : HttpStatus.OK).body(dados);
 	}
