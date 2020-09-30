@@ -15,6 +15,8 @@ import org.springframework.web.client.RestTemplate;
 import com.evoluum.model.dto.EstadoDTO;
 import com.evoluum.model.dto.LocalizacaoDTO;
 import com.evoluum.model.dto.MunicipioDTO;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 
 @Service
 public class WebClientService {
@@ -33,6 +35,9 @@ public class WebClientService {
 	@Value("${endpoint.ibge.municipio}")
 	private String endpointMunicipio;
 
+	@HystrixCommand(fallbackMethod = "gerarListaVazia", commandProperties = {
+			@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "15000"),
+			@HystrixProperty(name = "circuitBreaker.sleepWindowInMilliseconds", value = "2000") })
 	public List<LocalizacaoDTO> getTodosOsDadosJSON() {
 		List<LocalizacaoDTO> listaLocalizacao = new ArrayList<>();
 		List<EstadoDTO> listaEstados = getTodosEstados();
@@ -54,6 +59,11 @@ public class WebClientService {
 		logger.info("Id da cidade lido com sucesso.");
 
 		return idCidade;
+	}
+
+	public List<LocalizacaoDTO> gerarListaVazia() {
+		logger.info("Circuit break executado!");
+		return new ArrayList<>();
 	}
 
 	private List<EstadoDTO> getTodosEstados() {
