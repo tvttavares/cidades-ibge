@@ -33,4 +33,12 @@ public class LocalizacaoController {
 		return ResponseEntity.status(dados == null ? HttpStatus.NOT_FOUND : HttpStatus.OK).body(dados);
 	}
 
+	@GetMapping("/todos/csv")
+	public ResponseEntity<Object> getTodosOsDadosCSV(HttpServletResponse response) {
+		logger.info("Iniciando requisição de todos os dados em formato CSV");
+		Object dados = localizacaoService.getTodosOsDadosCSV(response);
+
+		return ResponseEntity.status(dados == null ? HttpStatus.NOT_FOUND : HttpStatus.OK).body(dados);
+	}
+
 }
