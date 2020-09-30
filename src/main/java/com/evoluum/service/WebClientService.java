@@ -29,6 +29,9 @@ public class WebClientService {
 	@Value("${endpoint.ibge.municipios}")
 	private String endpointMunicipios;
 
+	@Value("${endpoint.ibge.municipio}")
+	private String endpointMunicipio;
+
 	public List<LocalizacaoDTO> getTodosOsDadosJSON() {
 		List<LocalizacaoDTO> listaLocalizacao = new ArrayList<>();
 		List<EstadoDTO> listaEstados = getTodosEstados();
@@ -42,7 +45,15 @@ public class WebClientService {
 
 		return listaLocalizacao;
 	}
-	
+
+	public String getIdMunicipio(String nomeCidade) {
+		logger.info("Buscando id da cidade: " + nomeCidade);
+		String idCidade = restTemplate.getForObject(endpointMunicipio + nomeCidade, MunicipioDTO.class).getId();
+		logger.info("Id da cidade lido com sucesso.");
+
+		return idCidade;
+	}
+
 	private List<EstadoDTO> getTodosEstados() {
 		logger.info("Leitura de todos estados.");
 		List<EstadoDTO> listaEstados = Arrays

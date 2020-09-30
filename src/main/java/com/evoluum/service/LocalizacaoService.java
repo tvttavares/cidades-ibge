@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.evoluum.format.LocalizacaoCsvDataFormat;
 import com.evoluum.model.dto.LocalizacaoDTO;
+import com.evoluum.model.dto.MunicipioDTO;
 
 @Service
 public class LocalizacaoService {
@@ -28,7 +29,7 @@ public class LocalizacaoService {
 	public void getTodosOsDadosCSV(HttpServletResponse response) {
 		List<LocalizacaoDTO> listLocalizacoes = webClientService.getTodosOsDadosJSON();
 		LocalizacaoCsvDataFormat localizacaoCsvDataFormat = new LocalizacaoCsvDataFormat(listLocalizacoes);
-		
+
 		try {
 			logger.info("Inicio da geração do arquivo CSV");
 			localizacaoCsvDataFormat.gerarArquivo(response, listLocalizacoes);
@@ -37,6 +38,10 @@ public class LocalizacaoService {
 			logger.info("Falha na geração do arquivo csv.");
 			logger.error(e.getMessage());
 		}
+	}
+
+	public String getIdMunicipio(String nomeCidade) {
+		return webClientService.getIdMunicipio(nomeCidade);
 	}
 
 }
