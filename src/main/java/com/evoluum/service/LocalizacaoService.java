@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.evoluum.format.LocalizacaoCsvDataFormat;
 import com.evoluum.model.dto.LocalizacaoDTO;
-import com.evoluum.model.dto.MunicipioDTO;
 
 @Service
 public class LocalizacaoService {
